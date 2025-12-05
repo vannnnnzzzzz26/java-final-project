@@ -8,21 +8,24 @@ public class contact {
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Contact List");
-        frame.setSize(400, 500);
+        frame.setSize(400, 550);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new FlowLayout());
 
-        // ui components
+        // UI components
         JTextField nameField = new JTextField(20);
         JButton addBtn = new JButton("Add Contact");
         JButton searchBtn = new JButton("Search");
         JButton updateBtn = new JButton("Update");
         JButton deleteBtn = new JButton("Delete");
-        
+
+        // ➜ NEW BUTTON (Go to Playlist)
+        JButton playlistBtn = new JButton("Open Playlist");
+
         JTextArea display = new JTextArea(15, 30);
         display.setEditable(false);
 
-        // add contact function 
+        // ADD CONTACT
         addBtn.addActionListener(e -> {
             String name = nameField.getText();
             if (!name.isEmpty()) {
@@ -33,7 +36,7 @@ public class contact {
             }
         });
 
-        // search function
+        // SEARCH CONTACT
         searchBtn.addActionListener(e -> {
             String name = nameField.getText();
             String result = "Not found.";
@@ -76,19 +79,27 @@ public class contact {
             }
         });
 
-        // ADD COMPONENTS TO JFrame
+        // ➜ button ng playlist
+        playlistBtn.addActionListener(e -> {
+            new PlaylistGUI();  
+        });
+
+        // ADD COMPONENTS TO FRAME
         frame.add(new JLabel("Enter name:"));
         frame.add(nameField);
         frame.add(addBtn);
         frame.add(searchBtn);
         frame.add(updateBtn);
         frame.add(deleteBtn);
+
+        frame.add(playlistBtn);   // <-- ito  yung parang href niya
+
         frame.add(new JScrollPane(display));
 
         frame.setVisible(true);
     }
 
-    // para sa display ng contact
+    // DISPLAY CONTACTS
     static String showContacts() {
         if (count == 0) return "No contacts available.\n";
         StringBuilder sb = new StringBuilder("Contacts:\n");
